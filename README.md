@@ -30,12 +30,19 @@ curl localhost:8080 \
 </p>
 
 <h2>Deploy process</h2>
-TBA
-<!-- <p>prerequisties: docker image for linux (see above) and gcloud auth / credentials configured</p>
+<p>requirements.txt updated and gcloud auth / credentials configured</p>
 <ul>
-<li>push artifact (image) <br>
-docker push europe-west1-docker.pkg.dev/${PROJECT_ID}/lastminuteresy/table-service:tag</li>
-<li>(optional) credentials for cluster<br>
+<li>deploy function <br>
+gcloud functions deploy restaurant_integrations \
+--gen2 \
+--region=europe-west1 \
+--runtime=python312 \
+--source=https://source.developers.google.com/projects/sapient-bucksaw-401016/repos/github_alltidsemester1337_lastminuteresy-restaurant-integration-function/revisions/main \
+--entry-point=handle_incoming_booking_request_event \
+--trigger-topic=booking-requests \
+--max-instances=5
+</li>
+<!-- <li>(optional) credentials for cluster<br>
 gcloud container clusters get-credentials hello-cluster --region europe-west1</li>
 <li><strong>create deployment for new image</strong><br>
 kubectl create deployment table-service --image=europe-west1-docker.pkg.dev/${PROJECT_ID}/lastminuteresy/table-service:tag</li>
