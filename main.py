@@ -38,7 +38,7 @@ def handle_incoming_booking_request_event(cloud_event):
     requested_booking_time = datetime.datetime.fromisoformat(booking_request["time"])
 
     integration = INTEGRATIONS[booking_request["integration_id"]]
-    new_booking = integration.attempt_booking(booking_request["restaurant"], requested_booking_time)
+    new_booking = integration.attempt_booking(booking_request["restaurant"], requested_booking_time, booking_request["extra_parameters"])
 
     if new_booking is not None:
         publish_new_booking(new_booking)
