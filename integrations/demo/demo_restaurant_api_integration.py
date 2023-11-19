@@ -8,7 +8,7 @@ import requests
 
 class DemoRestaurantApiIntegration(ApiIntegration, DemoRestaurantIntegration):
 
-    def attempt_booking(self, restaurant, time):
+    def attempt_booking(self, restaurant, time, num_persons, extra_parameters):
         booking_response = requests.get(super().BOOK_ENDPOINT_URL)
         if booking_response.ok and super().BOOK_SUCCESS_MESSAGE in booking_response.content.decode('utf-8').casefold():
             return Booking(restaurant, time, datetime.datetime.utcnow())

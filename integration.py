@@ -1,11 +1,11 @@
 from abc import abstractmethod, ABC
 
-from main import BookingFailedException
+from model.booking_failed_exception import BookingFailedException
 
 
 class Integration(ABC):
     @abstractmethod
-    def attempt_booking(self, restaurant, time, extra_parameters):
+    def attempt_booking(self, restaurant, time, num_persons, extra_parameters):
         pass
 
     @staticmethod
