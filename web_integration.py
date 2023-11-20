@@ -45,7 +45,7 @@ class WebIntegration(Integration):
     def wait_for_element(self, web_driver, by, selector, wait=None):
         timeout = wait
         if not timeout:
-            timeout = timedelta(10)
+            timeout = timedelta(seconds=10)
 
         end = datetime.utcnow() + timeout
         while datetime.utcnow() < end:
