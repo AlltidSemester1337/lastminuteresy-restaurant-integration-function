@@ -1,6 +1,8 @@
 import time
 from datetime import timedelta, datetime
 
+from selenium.common import NoSuchElementException
+
 from integration import Integration
 from selenium import webdriver
 
@@ -14,7 +16,8 @@ class WebIntegration(Integration):
     def get_web_client(self):
         options = Options()
 
-        options.add_argument("--headless")
+        # TODO REVERT BEFORE DEPLOY
+        # options.add_argument("--headless")
 
         # Create a new Chrome instance
         driver = webdriver.Chrome(options=options)
@@ -46,9 +49,12 @@ class WebIntegration(Integration):
 
         end = datetime.utcnow() + timeout
         while datetime.utcnow() < end:
-            element = web_driver.find_element(by, selector)
-            if element is not None:
-                return element
-            else:
+            try:
+                element = web_driver.find_element(by, selector)
+                if element is not None:
+                    return element
+                else:
+                    time.sleep(1)
+            except NoSuchElementException as e:
                 time.sleep(1)
         return None
