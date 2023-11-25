@@ -52,10 +52,11 @@ class HantverketWebIntegration(WebIntegration):
                                      swedish_time.minute) + "')]//a[@class = 'book']").click()
         super().wait_for_element(self, web_driver, By.NAME, "firstname").send_keys(parameters["first_name"])
         web_driver.find_element(By.NAME, "lastname").send_keys(parameters["last_name"])
-        valid_mobile_phone = "07" + parameters["phone"][2:]
+        valid_mobile_phone = "07" + parameters["phone"][3:].replace("-", "")
         web_driver.find_element(By.XPATH, ".//input[@ng-model = 'guestPhone']").send_keys(valid_mobile_phone)
         web_driver.find_element(By.NAME, "email").send_keys(parameters["email"])
         web_driver.find_element(By.XPATH, ".//input[@ng-checked = 'booking.terms.restaurant']").click()
         web_driver.find_element(By.XPATH, ".//button[@ng-click = 'next()']").click()
-        # return Booking(restaurant, time, datetime.datetime.utcnow())
-        # return None
+        super().wait_for_element(self, web_driver, By.XPATH,
+                                 ".//p[text() = 'Du är nu klar och bekräftelse har skickats via epost.']")
+        return Booking(restaurant, time, datetime.datetime.utcnow())

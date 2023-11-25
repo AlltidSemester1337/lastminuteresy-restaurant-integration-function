@@ -7,10 +7,12 @@ import json
 
 from booking import Booking
 from integrations.demo import demo_restaurant_api_integration, demo_restaurant_web_integration
+from integrations.hantverket import hantverket_web_integration
 from model.booking_failed_exception import BookingFailedException
 
 INTEGRATIONS = {1: demo_restaurant_api_integration.DemoRestaurantApiIntegration(),
-                2: demo_restaurant_web_integration.DemoRestaurantWebIntegration()}
+                2: demo_restaurant_web_integration.DemoRestaurantWebIntegration(),
+                3: hantverket_web_integration.HantverketWebIntegration()}
 
 project_id = "sapient-bucksaw-401016"
 topic_id = "bookings"
