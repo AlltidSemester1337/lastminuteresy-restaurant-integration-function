@@ -16,8 +16,7 @@ class WebIntegration(Integration):
     def get_web_client(self):
         options = Options()
 
-        # TODO REVERT BEFORE DEPLOY
-        # options.add_argument("--headless")
+        options.add_argument("--headless")
 
         # Create a new Chrome instance
         driver = webdriver.Chrome(options=options)
